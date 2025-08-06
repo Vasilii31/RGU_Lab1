@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const authMiddleware = require('../middlewares/auth');
 const Todo = require('../../public/Javascript/models/Todo');
 
+router.use(authMiddleware);
 // POST /todo - créer une todo
 router.post('/', async (req, res) => {
   try {

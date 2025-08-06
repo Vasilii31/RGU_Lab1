@@ -35,7 +35,16 @@ router.post('/login', async (req, res) => {
       expiresIn: '1h',
     });
 
-    res.json({ token, user: { id: user._id, name: user.name, email: user.email } });
+    // Stocker le token dans un cookie httpOnly
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // cookie sécurisé en prod
+      sameSite: 'lax',  // pour la plupart des cas, tu peux ajuster selon ton front et back
+      maxAge: 3600000, // 1 heure en ms, doit matcher l'expiration du token
+    });
+
+    // Tu peux aussi retourner l'utilisateur si besoin (sans token ici)
+    res.json({ user: { id: user._id, name: user.name, email: user.email } });
   } catch (err) {
     res.status(500).json({ message: 'Erreur serveur', error: err });
   }

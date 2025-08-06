@@ -3,8 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 
-const todoRoutes = require('./routes/todo');
-const userRoutes = require('./routes/user');
+const todoRoutes = require('./Back/routes/todo');
+const userRoutes = require('./Back/routes/user');
 const apiRoutes = require('./Back/api');
 
 const app = express();

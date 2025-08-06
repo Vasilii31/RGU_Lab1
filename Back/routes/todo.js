@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Todo = require('../models/Todo');
+const Todo = require('../../public/Javascript/models/Todo');
 
 // POST /todo - créer une todo
 router.post('/', async (req, res) => {

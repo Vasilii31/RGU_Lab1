@@ -3,9 +3,10 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 
+const authRoutes = require('./Back/routes/auth');
 const todoRoutes = require('./Back/routes/todo');
 const userRoutes = require('./Back/routes/user');
-const apiRoutes = require('./Back/api');
+//const apiRoutes = require('./Back/api');
 
 const app = express();
 const mongoose = require('mongoose');
@@ -16,9 +17,10 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:3000' }));
 
-app.use('/api', apiRoutes);
+//app.use('/api', apiRoutes);
 app.use('/todo', todoRoutes);
 app.use('/user', userRoutes);
+app.use('/api/auth', authRoutes);
 
 // Default route
 app.get('/', (req, res) => {

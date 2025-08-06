@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 
 const authRoutes = require('./Back/routes/auth');
 const todoRoutes = require('./Back/routes/todo');
@@ -15,6 +16,7 @@ const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/mydatabase'
 const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors({ origin: 'http://localhost:3000' }));
 
 //app.use('/api', apiRoutes);

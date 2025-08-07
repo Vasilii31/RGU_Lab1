@@ -17,7 +17,10 @@ const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({
+  origin: 'http://localhost:3000', // ton front Next.js
+  credentials: true,                // autorise l'envoi des cookies avec les requêtes cross-origin
+}));
 
 //app.use('/api', apiRoutes);
 app.use('/todo', todoRoutes);

@@ -1,4 +1,6 @@
 // server.js
+const fs = require('fs');
+const https = require('https');
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -34,11 +36,20 @@ app.get('/', (req, res) => {
 // Serve static files from "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+const options = {
+  key: fs.readFileSync('/etc/ssl/certs/server.key'),  // correspond à 10.42.12.43-key.pem monté via Docker
+  cert: fs.readFileSync('/etc/ssl/certs/server.crt'), // correspond à 10.42.12.43.pem monté via Docker
+};
+
+
 mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connecté !'))
   .catch(err => console.error('Erreur de connexion MongoDB:', err));
 
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+// app.listen(PORT, () => {
+//   console.log(`Server running at http://localhost:${PORT}`);
+// });
+https.createServer(options, app).listen(8080, () => {
+  console.log('Serveur HTTPS démarré sur le port 8080');
 });

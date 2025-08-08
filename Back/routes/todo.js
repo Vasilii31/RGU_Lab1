@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
 // GET /todo - récupérer toutes les todos
 router.get('/', async (req, res) => {
   try {
-    const todos = await Todo.find().sort({ createdAt: -1 });
+    const todos = await Todo.find({ user: req.user.id }).sort({ createdAt: -1 });
     res.json(todos);
   } catch (error) {
     res.status(500).json({ message: 'Erreur serveur', error });

@@ -38,8 +38,8 @@ router.post('/login', async (req, res) => {
     // Stocker le token dans un cookie httpOnly
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // cookie sécurisé en prod
-      sameSite: 'lax',  // pour la plupart des cas, tu peux ajuster selon ton front et back
+      secure: false, // cookie sécurisé en prod
+      sameSite: 'none',  // pour la plupart des cas, tu peux ajuster selon ton front et back
       maxAge: 3600000, // 1 heure en ms, doit matcher l'expiration du token
     });
 

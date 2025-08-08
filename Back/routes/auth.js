@@ -50,4 +50,24 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.get('/me', (req, res) => {
+  const token = req.cookies?.token; // nécessite cookie-parser middleware
+  if (!token) {
+    console.log('Pas de token trouvé');
+    return res.status(401).json({ authenticated: false, message: 'Pas de token' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, "TestChaineSecrete");
+    // Tu peux aussi renvoyer les infos utilisateur ici si besoin
+    console.log('Token vérifié avec succès', decoded);
+    res.json({
+      authenticated: true,
+      user: { id: decoded.id, email: decoded.email }
+    });
+  } catch (err) {
+    res.status(401).json({ authenticated: false, message: 'Token invalide ou expiré' });
+  }
+});
+
 module.exports = router;

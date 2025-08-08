@@ -31,7 +31,7 @@ router.post('/login', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Mot de passe incorrect' });
 
-    const token = jwt.sign({ id: user._id, email: user.email }, "TestChaineSecrete", {
+    const token = jwt.sign({ id: user._id, email: user.email, name: user.name }, "TestChaineSecrete", {
       expiresIn: '1h',
     });
 

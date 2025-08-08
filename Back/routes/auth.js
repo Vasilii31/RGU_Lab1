@@ -63,7 +63,7 @@ router.get('/me', (req, res) => {
     console.log('Token vérifié avec succès', decoded);
     res.json({
       authenticated: true,
-      user: { id: decoded.id, email: decoded.email }
+      user: { id: decoded.id, email: decoded.email, name: decoded.name }
     });
   } catch (err) {
     res.status(401).json({ authenticated: false, message: 'Token invalide ou expiré' });

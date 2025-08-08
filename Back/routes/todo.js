@@ -10,10 +10,13 @@ router.post('/', async (req, res) => {
     const { title } = req.body;
     if (!title) return res.status(400).json({ message: 'Le titre est obligatoire' });
 
-    const todo = new Todo({ title });
+    // req.user sera rempli par ton middleware d'auth (décodé du token)
+    const todo = new Todo({ title, user: req.user.id });
     await todo.save();
 
     res.status(201).json(todo);
+    console.log('tentative de creation de todo du user:', req.user.id);
+    console.log('Todo créée:', todo);
   } catch (error) {
     res.status(500).json({ message: 'Erreur serveur', error });
   }
